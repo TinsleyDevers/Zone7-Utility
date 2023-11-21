@@ -5,13 +5,9 @@ Minecraft Plugin**
 This is my first real java project and it was made for the minecraft server zone7.apexmc.co
 
 Allows you to pet mobs by shift right clicking with an empty hand.
-
 Also includes:
-
 **/discord** - showcase your discord
-
 **/poke** {player} - plays an audible ding for the user and lets them know they've been poked/mentioned.
-
 **/tips** - enable or disable tips to be shown in chat every hour to players fully customizable
 
 **Petting Mobs**
