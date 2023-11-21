@@ -5,6 +5,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import java.util.Arrays;
+import java.util.List;
 
 public class MainPluginClass extends JavaPlugin {
     private TipsManager tipsManager;
@@ -12,11 +14,28 @@ public class MainPluginClass extends JavaPlugin {
     @Override
     public void onEnable() {
         this.saveDefaultConfig();
+        this.addDefaultPetMessages();
         this.registerCommands();
         this.registerListeners();
 
+
         tipsManager = new TipsManager(this);
         tipsManager.startBroadcasting();
+        getServer().getPluginManager().registerEvents(new FlowerDropListener(), this);
+        getServer().getPluginManager().registerEvents(new ArrowTrails(this), this);
+    }
+
+    private void addDefaultPetMessages() {
+        List<String> defaultPetMessages = Arrays.asList(
+                "gently pets", "lovingly strokes", "happily pats",
+                "kindly rubs", "carefully caresses", "playfully tickles",
+                "affectionately scratches", "softly touches", "fondly nudges",
+                "tenderly pokes"
+        );
+        if (!this.getConfig().isSet("PetMessages")) {
+            this.getConfig().set("PetMessages", defaultPetMessages);
+            this.saveConfig();
+        }
     }
 
     private void registerCommands() {
@@ -32,7 +51,7 @@ public class MainPluginClass extends JavaPlugin {
     }
 
     private void registerListeners() {
-        getServer().getPluginManager().registerEvents(new EntityInteractListener(), this);
+        getServer().getPluginManager().registerEvents(new EntityInteractListener(this), this);
     }
 
     private boolean reloadCommand(CommandSender sender, Command command, String label, String[] args) {

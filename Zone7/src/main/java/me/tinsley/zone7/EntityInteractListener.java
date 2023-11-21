@@ -10,14 +10,20 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.util.Vector;
+import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class EntityInteractListener implements Listener {
     private Map<UUID, Long> lastPetTimes = new HashMap<>();
     private Map<UUID, UUID> lastPetEntity = new HashMap<>();
+    private Random random = new Random();
+    private JavaPlugin plugin;
+
+    public EntityInteractListener(JavaPlugin plugin) {
+        this.plugin = plugin;
+    }
 
     @EventHandler
     public void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
@@ -28,30 +34,30 @@ public class EntityInteractListener implements Listener {
         if (player.isSneaking() && event.getHand() == EquipmentSlot.HAND) {
             ItemStack itemInHand = player.getInventory().getItemInMainHand();
             if (itemInHand.getType().isAir()) {
-                // heart particles
-                entity.getWorld().spawnParticle(Particle.HEART, entity.getLocation().add(0, 1, 0), 5);
+                int heartsToSpawn = random.nextInt(3) + 1;
+                for (int i = 0; i < heartsToSpawn; i++) {
+                    Vector offset = new Vector((random.nextDouble() - 0.5) * 2.0, 1.0, (random.nextDouble() - 0.5) * 2.0);
+                    entity.getWorld().spawnParticle(Particle.HEART, entity.getLocation().add(offset), 1);
+                }
 
-                // Cooldown
                 long lastPetTime = lastPetTimes.getOrDefault(player.getUniqueId(), 0L);
-                if (System.currentTimeMillis() - lastPetTime >= 7000) {
+                UUID lastEntityId = lastPetEntity.getOrDefault(player.getUniqueId(), new UUID(0, 0));
+                if (System.currentTimeMillis() - lastPetTime >= 7000 || !lastEntityId.equals(entity.getUniqueId())) {
                     lastPetTimes.put(player.getUniqueId(), System.currentTimeMillis());
+                    lastPetEntity.put(player.getUniqueId(), entity.getUniqueId());
 
+                    List<String> pettingMessages = plugin.getConfig().getStringList("PetMessages");
+                    String randomMessage = pettingMessages.get(random.nextInt(pettingMessages.size()));
 
-                    // name to display in message
                     String entityName = entity.getCustomName();
                     if (entityName == null || entityName.isEmpty()) {
                         entityName = entity.getType().name();
                     }
 
-                    if (System.currentTimeMillis() - lastPetTime >= 7000 || !lastPetEntity.getOrDefault(player.getUniqueId(), UUID.randomUUID()).equals(entity.getUniqueId())) {
-                        lastPetTimes.put(player.getUniqueId(), System.currentTimeMillis());
-                        lastPetEntity.put(player.getUniqueId(), entity.getUniqueId());
-
-                        String message = ChatColor.GRAY + player.getName() + " has pet " + entityName + ".";
-                        Bukkit.getOnlinePlayers().stream()
-                                .filter(p -> p.getLocation().distance(entity.getLocation()) <= 20)
-                                .forEach(p -> p.sendMessage(message));
-                    }
+                    String message = ChatColor.GRAY + player.getName() + " " + randomMessage + " " + entityName + ".";
+                    Bukkit.getOnlinePlayers().stream()
+                            .filter(p -> p.getLocation().distance(entity.getLocation()) <= 20)
+                            .forEach(p -> p.sendMessage(message));
                 }
             }
         }
