@@ -21,4 +21,5 @@ Also includes:
 **Chat Features**
 ![image](https://github.com/TinsleyDevers/Zone7-Utility/assets/75707609/c1204ced-9cf2-4c06-b650-33e5098a184c)
 
-**Check it out on Spigot! https://www.spigotmc.org/resources/zone7-utility-1-20-x-pet-mobs-poke-users-discord-command-tips-in-chat.113654/**
+**Check it out on Spigot!
+https://www.spigotmc.org/resources/zone7-utility-1-20-x-pet-mobs-poke-users-discord-command-tips-in-chat.113654/**
