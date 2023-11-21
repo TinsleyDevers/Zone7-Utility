@@ -1,0 +1,13 @@
+name: Zone7
+version: 1.1
+main: me.tinsley.zone7.MainPluginClass
+api-version: 1.20
+commands:
+  discord:
+    description: Display Discord link
+  poke:
+    description: Poke another player
+  reload:
+    description: Reload the plugin configuration
+  tips:
+    description: Toggle tips on or off
