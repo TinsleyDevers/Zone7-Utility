@@ -8,6 +8,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class TipsManager {
     private final JavaPlugin plugin;
@@ -58,4 +59,23 @@ public class TipsManager {
             player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1, 1);
         }
     }
+    public void savePlayerPreferences() {
+        List<String> disabledPlayers = tipsDisabled.stream()
+                .map(UUID::toString)
+                .collect(Collectors.toList());
+        plugin.getConfig().set("TipsCommand.DisabledPlayers", disabledPlayers);
+        plugin.saveConfig();
+    }
+
+    public void restorePlayerPreferences() {
+        tipsDisabled.clear();
+        if (plugin.getConfig().isSet("TipsCommand.DisabledPlayers")) {
+            List<String> disabledPlayers = plugin.getConfig().getStringList("TipsCommand.DisabledPlayers");
+            for (String playerUUID : disabledPlayers) {
+                tipsDisabled.add(UUID.fromString(playerUUID));
+            }
+        }
+    }
 }
+
+

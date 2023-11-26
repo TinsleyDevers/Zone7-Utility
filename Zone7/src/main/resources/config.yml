@@ -1,20 +1,68 @@
-DiscordCommand:
-  TextMessage: "Join our Discord!"
-  TextColor:
-    - "#7289DA"
-    - "#8A91E6"
-  Link: "discord.gg/example"
-  LinkColor: "#B9ABF8"
+# Zone7 Plugin Configuration
 
-TipsCommand:
+# Discord Command Settings
+DiscordCommand:
+  # Enable or Disable the Discord Command
   Enabled: true
-  Interval: 3600 # in seconds (3600 seconds = 1 hour)
+  # Text Message displayed by the Discord Command
+  TextMessage: "Join our Discord!"
+  # Gradient Colors for the Text Message
+  TextColor:
+    - "#7289DA" # Start
+    - "#8A91E6" # End
+  # Discord Link displayed by the Command
+  Link: "discord.gg/example"
+  # Color of the Discord Link
+  LinkColor: "#B9ABF8" # Light Blue
+
+# Poke Command Settings
+PokeCommand:
+  # Enable or Disable the Poke Command
+  Enabled: true
+
+# Tips Feature Settings
+TipsCommand:
+  # Enable or Disable Tips Broadcast
+  FeatureEnabled: true
+  # Interval between Tips Messages in seconds (3600 seconds = 1 hour)
+  Interval: 3600
+  # List of Messages broadcasted as Tips
   Messages:
     - "&eDo you want a pet? Try out /pets"
     - "&aCheckout the shops at spawn!"
     - "&bWant ChestProtection? Do /cp to get more info!"
     - "&dClaim land by using /lands and /land claim"
 
+# Flower Drop Feature Settings
+FlowerDropFeature:
+  # Enable or Disable Flower Drop Feature
+  Enabled: true
+
+# Arrow Trails Feature Settings
+ArrowTrails:
+  Enabled: true
+  # Enable or Disable Arrow Trails
+  Trails:
+    Cupid:
+      Particles:
+        - HEART
+    Bubbles:
+      Particles:
+        - BUBBLE_POP
+        - BUBBLE_COLUMN_UP
+  # Example Arrow Trail
+  # Mystic: <-- Name of Bow/Crossbow
+    # Particles:
+      # - END_ROD <-- Particles to display
+      # - ENCHANTMENT_TABLE <-- Particles 2
+      # - HEART <-- Particles 3
+      #  etc..
+
+# Petting Feature Settings
+PettingFeature:
+  # Enable or Disable the Petting Feature
+  Enabled: true
+# Pet Messages used in the Petting Feature
 PetMessages:
   - "gently pets"
   - "kindly pets"

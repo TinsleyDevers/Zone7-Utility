@@ -12,16 +12,35 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class ArrowTrails implements Listener {
-    private JavaPlugin plugin;
-    private Map<UUID, BukkitRunnable> arrowTasks = new HashMap<>();
+    private final JavaPlugin plugin;
+    private final Map<UUID, BukkitRunnable> arrowTasks = new HashMap<>();
+    private final Map<String, List<Particle>> customTrails = new HashMap<>();
 
     public ArrowTrails(JavaPlugin plugin) {
         this.plugin = plugin;
+        loadCustomTrails();
+    }
+
+    private void loadCustomTrails() {
+        customTrails.clear();
+        if (plugin.getConfig().isConfigurationSection("ArrowTrails.Trails")) {
+            for (String key : plugin.getConfig().getConfigurationSection("ArrowTrails.Trails").getKeys(false)) {
+                List<String> particleNames = plugin.getConfig().getStringList("ArrowTrails.Trails." + key + ".Particles");
+                List<Particle> particles = new ArrayList<>();
+                for (String name : particleNames) {
+                    try {
+                        Particle particle = Particle.valueOf(name.toUpperCase());
+                        particles.add(particle);
+                    } catch (IllegalArgumentException e) {
+                        plugin.getLogger().warning("Invalid particle type: " + name + " in trail " + key);
+                    }
+                }
+                customTrails.put(key, particles);
+            }
+        }
     }
 
     @EventHandler
@@ -31,10 +50,11 @@ public class ArrowTrails implements Listener {
             Player player = (Player) arrow.getShooter();
             ItemStack bow = player.getInventory().getItemInMainHand();
 
-            if (isNamedBow(bow, "Cupid")) {
-                createArrowTrail(arrow, Particle.HEART);
-            } else if (isNamedBow(bow, "Bubbles")) {
-                createArrowTrail(arrow, Particle.BUBBLE_POP, Particle.BUBBLE_COLUMN_UP);
+            for (Map.Entry<String, List<Particle>> entry : customTrails.entrySet()) {
+                if (isNamedBow(bow, entry.getKey())) {
+                    createArrowTrail(arrow, entry.getValue());
+                    break;
+                }
             }
         }
     }
@@ -51,14 +71,12 @@ public class ArrowTrails implements Listener {
         }
     }
 
-    private void createArrowTrail(Arrow arrow, Particle... particles) {
+    private void createArrowTrail(Arrow arrow, List<Particle> particles) {
         BukkitRunnable task = new BukkitRunnable() {
             @Override
             public void run() {
                 if (!arrow.isDead() && !arrow.isOnGround()) {
-                    for (Particle particle : particles) {
-                        arrow.getWorld().spawnParticle(particle, arrow.getLocation(), 1);
-                    }
+                    particles.forEach(particle -> arrow.getWorld().spawnParticle(particle, arrow.getLocation(), 1));
                 } else {
                     this.cancel();
                     arrowTasks.remove(arrow.getUniqueId());
