@@ -6,7 +6,7 @@ Minecraft Plugin**
 
 # **-Petting Mobs-**
 - pet mobs by shift right clicking with an empty hand.
-
+-
 # **-Arrow Trails-**
 - Cupid - shoots a trail of hearts!
 - Bubbles - shoots a trail of bubbles!
