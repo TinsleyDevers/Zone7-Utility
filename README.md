@@ -1,4 +1,4 @@
-# Zone7-Utility
+## Zone7-Utility
 **Zone7 Utility [1.20.X] Pet Mobs - Poke Users - Discord Command - Tips in Chat 
 Minecraft Plugin**
 
