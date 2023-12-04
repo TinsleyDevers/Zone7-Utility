@@ -35,5 +35,5 @@ This is my first real java project and it was made for the minecraft server zone
 
 (this is my first plugin and made for the server zone7.apexmc.co if you have any recommendations or anything that might be fun to implement let me know and I'll consider it!)
 
-**Check it out on Spigot!
-- https://www.spigotmc.org/resources/zone7-utility-1-20-x-pet-mobs-poke-users-discord-command-tips-in-chat.113654/**
+#Check it out on Spigot!
+- https://www.spigotmc.org/resources/zone7-utility-1-20-x-pet-mobs-poke-users-discord-command-tips-in-chat.113654/
