@@ -26,7 +26,7 @@ public class MainPluginClass extends JavaPlugin {
     }
 
     private void unregisterListeners() {
-        HandlerList.unregisterAll(this); // This will unregister all listeners registered by this plugin
+        HandlerList.unregisterAll(this);
     }
 
     private void registerFeatures() {
@@ -82,14 +82,14 @@ public class MainPluginClass extends JavaPlugin {
     private boolean reloadCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender.hasPermission("zone7.reload")) {
             if (tipsManager != null) {
-                tipsManager.savePlayerPreferences(); // Save player preferences before reloading
+                tipsManager.savePlayerPreferences();
             }
 
             reloadConfig();
             registerFeatures();
 
             if (tipsManager != null) {
-                tipsManager.restorePlayerPreferences(); // Restore player preferences after reloading
+                tipsManager.restorePlayerPreferences();
                 tipsManager.restartBroadcasting();
             }
 
