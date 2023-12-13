@@ -27,10 +27,8 @@ public class PokeCommand implements CommandExecutor {
         Player player = (Player) sender;
         UUID playerUUID = player.getUniqueId();
 
-        // Check cooldown
         long timeLeft = System.currentTimeMillis() - cooldowns.getOrDefault(playerUUID, 0L);
         if (timeLeft < COOLDOWN_TIME) {
-            // Cooldown active, send remaining time message
             long timeRemaining = (COOLDOWN_TIME - timeLeft) / 1000;
             player.sendMessage(ChatColor.RED + "You can poke again in " + timeRemaining + " seconds.");
             return true;
@@ -45,7 +43,6 @@ public class PokeCommand implements CommandExecutor {
                 target.sendMessage(player.getName() + " has poked you!");
                 player.sendMessage("You poked " + target.getName() + ".");
 
-                // Update last used time
                 cooldowns.put(playerUUID, System.currentTimeMillis());
             } else {
                 player.sendMessage(ChatColor.RED + "Player not found or not online.");
