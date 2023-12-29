@@ -16,7 +16,7 @@ This is my first real java project and it was made for the minecraft server zone
 - Rename a flower and drop it for hearts and sparks to appear around you
 
 ## **-Commands-**
-- **undo** - break a block instantly; up to1.5 seconds after placing.
+- **/undo** - break a block instantly; up to1.5 seconds after placing.
 - **/discord** - showcase your discord in chat.
 - **/poke {player}** - plays an audible ding for the user and lets them know they've been poked/mentioned.
 - **/tips** - enable or disable tips to be shown in chat every hour.
