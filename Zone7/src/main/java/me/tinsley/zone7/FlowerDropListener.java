@@ -42,8 +42,10 @@ public class FlowerDropListener implements Listener {
     public void onItemSpawn(ItemSpawnEvent event) {
         ItemStack item = event.getEntity().getItemStack();
 
+        // Check if the item is a flower and has been renamed
         if (isRenamedFlower(item)) {
             Location loc = event.getLocation();
+            // Spawn 1 to 5 heart and spark particles around the dropped item
             for (int i = 0; i < random.nextInt(5) + 1; i++) {
                 loc.getWorld().spawnParticle(Particle.HEART, loc.clone().add(randomOffset()), 1);
                 loc.getWorld().spawnParticle(Particle.FIREWORKS_SPARK, loc.clone().add(randomOffset()), 1);

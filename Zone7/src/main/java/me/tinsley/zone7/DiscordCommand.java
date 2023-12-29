@@ -22,7 +22,7 @@ public class DiscordCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage("This command can only be used by players.");
-            return true;
+            return true;    
         }
 
         Player player = (Player) sender;

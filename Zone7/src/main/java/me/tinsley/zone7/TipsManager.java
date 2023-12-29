@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -17,13 +18,14 @@ public class TipsManager {
 
     public TipsManager(JavaPlugin plugin) {
         this.plugin = plugin;
+        restorePlayerPreferences();
     }
 
     public void startBroadcasting() {
         broadcastTask = new BukkitRunnable() {
             @Override
             public void run() {
-                if (!plugin.getConfig().getBoolean("TipsCommand.Enabled", true)) return;
+                if (!plugin.getConfig().getBoolean("TipsCommand.FeatureEnabled", true)) return;
                 broadcastRandomTip();
             }
         }.runTaskTimer(plugin, 0, 20L * plugin.getConfig().getInt("TipsCommand.Interval", 3600));
@@ -58,7 +60,9 @@ public class TipsManager {
             player.sendMessage(ChatColor.RED + "Tips Disabled!");
             player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1, 1);
         }
+        savePlayerPreferences();
     }
+
     public void savePlayerPreferences() {
         List<String> disabledPlayers = tipsDisabled.stream()
                 .map(UUID::toString)
@@ -77,5 +81,3 @@ public class TipsManager {
         }
     }
 }
-
-

@@ -20,6 +20,11 @@ PokeCommand:
   # Enable or Disable the Poke Command
   Enabled: true
 
+# Undo Command Settings
+UndoCommand:
+  # Time in milliseconds to allow undoing a block after placing it
+  UndoTimer: 1500
+
 # Tips Feature Settings
 TipsCommand:
   # Enable or Disable Tips Broadcast

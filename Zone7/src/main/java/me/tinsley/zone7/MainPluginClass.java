@@ -9,8 +9,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.Arrays;
 import java.util.List;
 
+
 public class MainPluginClass extends JavaPlugin {
     private TipsManager tipsManager;
+    private UndoCommand undoCommand;
+    private BlockUndoListener blockUndoListener;
 
     @Override
     public void onEnable() {
@@ -23,6 +26,12 @@ public class MainPluginClass extends JavaPlugin {
         if (getConfig().getBoolean("TipsCommand.Enabled", true)) {
             tipsManager.startBroadcasting();
         }
+
+        undoCommand = new UndoCommand();
+        this.getCommand("undo").setExecutor(undoCommand);
+
+        blockUndoListener = new BlockUndoListener(this, undoCommand);
+        getServer().getPluginManager().registerEvents(blockUndoListener, this);
     }
 
     private void unregisterListeners() {

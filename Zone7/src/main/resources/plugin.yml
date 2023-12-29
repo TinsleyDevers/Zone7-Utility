@@ -1,5 +1,5 @@
 name: Zone7
-version: 1.4
+version: 1.5
 main: me.tinsley.zone7.MainPluginClass
 api-version: 1.20
 commands:
@@ -11,3 +11,5 @@ commands:
     description: Reload the plugin configuration
   tips:
     description: Toggle tips on or off
+  undo:
+      description: Toggle the undo feature on and off
