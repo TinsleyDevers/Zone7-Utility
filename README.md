@@ -21,6 +21,15 @@ This is my first real java project and it was made for the minecraft server zone
 - **/poke {player}** - plays an audible ding for the user and lets them know they've been poked/mentioned.
 - **/tips** - enable or disable tips to be shown in chat every hour.
 
+## **-Permissions-**
+**zone7.player** - Access to basic zone7 player commands.
+**zone7.admin** - Access to all zone7 player and admin commands.
+**zone7.discord** - Allows using the discord command.
+**zone7.poke** - Allows using the poke command.
+**zone7.reload** - Allows using the reload command.
+**zone7.tips** - Allows using the tips command.
+**zone7.undotoggle** - Allows using the undo toggle command.
+
 ## **Petting Mobs**
 ![image](https://github.com/TinsleyDevers/Zone7-Utility/assets/75707609/311a0ad4-fa4d-437b-94c3-21e461a19033)
 
