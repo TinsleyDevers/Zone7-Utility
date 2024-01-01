@@ -1,6 +1,7 @@
 package me.tinsley.zone7;
 
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -14,7 +15,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.event.block.Action;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.UUID;
 
@@ -48,14 +48,20 @@ public class BlockUndoListener implements Listener {
         Player player = event.getPlayer();
         UUID playerId = player.getUniqueId();
 
+        if (player.getGameMode() == GameMode.CREATIVE) {
+            return;
+        }
+
         if (event.getAction() == Action.LEFT_CLICK_BLOCK && undoCommand.isUndoEnabled(playerId)) {
             Block block = event.getClickedBlock();
             Location blockLocation = block.getLocation();
 
             if (lastPlacedBlocks.containsKey(blockLocation)) {
                 long timeSincePlaced = System.currentTimeMillis() - lastPlacedTimes.getOrDefault(playerId, 0L);
+                long undoWindow = plugin.getConfig().getLong("UndoCommand.UndoTimer", 1500); // 1.5 seconds (default time)
+                long minPlacementTime = plugin.getConfig().getLong("UndoCommand.MinPlacementTime", 500); // 500ms (default time)
 
-                if (timeSincePlaced <= plugin.getConfig().getInt("UndoCommand.UndoTimer", 1500)) {
+                if (timeSincePlaced > minPlacementTime && timeSincePlaced <= minPlacementTime + undoWindow) {
                     simulateInstantBreak(player, block, lastPlacedBlocks.get(blockLocation));
                     lastPlacedBlocks.remove(blockLocation);
                     updateMessageCooldown(playerId);
@@ -92,5 +98,3 @@ public class BlockUndoListener implements Listener {
         lastPlacedTimes.entrySet().removeIf(entry -> currentTime - entry.getValue() > 60000); // 60 seconds
     }
 }
-
-// implement so it only works in survival and isn't dropping blocks when broken in creative.

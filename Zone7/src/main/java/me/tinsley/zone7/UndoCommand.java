@@ -24,6 +24,11 @@ public class UndoCommand implements CommandExecutor {
         Player player = (Player) sender;
         UUID playerUUID = player.getUniqueId();
 
+        if (!player.hasPermission("zone7.undotoggle")) {
+            player.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
+            return true;
+        }
+
         if (undoEnabled.contains(playerUUID)) {
             undoEnabled.remove(playerUUID);
             player.sendMessage(ChatColor.RED + "Undo Disabled!");

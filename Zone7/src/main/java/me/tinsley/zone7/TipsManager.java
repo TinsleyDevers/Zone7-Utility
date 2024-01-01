@@ -51,6 +51,10 @@ public class TipsManager {
     }
 
     public void toggleTipsForPlayer(Player player) {
+        if (!player.hasPermission("zone7.tips")) {
+            player.sendMessage(ChatColor.RED + "You do not have permission to toggle tips.");
+            return;
+        }
         if (tipsDisabled.contains(player.getUniqueId())) {
             tipsDisabled.remove(player.getUniqueId());
             player.sendMessage(ChatColor.GREEN + "Tips Enabled!");

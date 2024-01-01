@@ -1,15 +1,50 @@
 name: Zone7
-version: 1.5
+version: 1.5.1
 main: me.tinsley.zone7.MainPluginClass
 api-version: 1.20
 commands:
   discord:
     description: Display Discord link
+    permission: zone7.discord
   poke:
     description: Poke another player
+    permission: zone7.poke
   reload:
     description: Reload the plugin configuration
+    permission: zone7.reload
   tips:
     description: Toggle tips on or off
-  undo:
-      description: Toggle the undo feature on and off
+    permission: zone7.tips
+  undotoggle:
+    description: Toggle the undo feature on and off
+    permission: zone7.undotoggle
+permissions:
+  zone7.player:
+    description: Access to basic player commands
+    default: true
+    children:
+      zone7.discord: true
+      zone7.poke: true
+      zone7.tips: true
+      zone7.undotoggle: true
+  zone7.admin:
+    description: Access to all player and admin commands
+    default: op
+    children:
+      zone7.reload: true
+      zone7.player: true
+  zone7.discord:
+    description: Allows using the discord command
+    default: op
+  zone7.poke:
+    description: Allows using the poke command
+    default: op
+  zone7.reload:
+    description: Allows using the reload command
+    default: op
+  zone7.tips:
+    description: Allows using the tips command
+    default: op
+  zone7.undotoggle:
+    description: Allows using the undo toggle command
+    default: op

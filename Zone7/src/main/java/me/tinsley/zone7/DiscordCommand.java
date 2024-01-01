@@ -14,6 +14,7 @@ import java.util.List;
 public class DiscordCommand implements CommandExecutor {
 
     private final JavaPlugin plugin;
+
     public DiscordCommand(JavaPlugin plugin) {
         this.plugin = plugin;
     }
@@ -21,11 +22,17 @@ public class DiscordCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage("This command can only be used by players.");
-            return true;    
+            sender.sendMessage(ChatColor.RED + "This command can only be used by players.");
+            return true;
         }
 
         Player player = (Player) sender;
+
+        if (!player.hasPermission("zone7.discord")) {
+            player.sendMessage(ChatColor.RED + "You do not have permission to use the Discord command.");
+            return true;
+        }
+
         sendGradientMessage(player, "DiscordCommand.TextMessage", "DiscordCommand.TextColor");
         sendClickableLink(player, "DiscordCommand.Link", "DiscordCommand.LinkColor");
 

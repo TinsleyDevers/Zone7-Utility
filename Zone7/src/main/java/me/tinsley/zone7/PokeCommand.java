@@ -25,6 +25,12 @@ public class PokeCommand implements CommandExecutor {
         }
 
         Player player = (Player) sender;
+
+        if (!player.hasPermission("zone7.poke")) {
+            player.sendMessage(ChatColor.RED + "You do not have permission to poke other players.");
+            return true;
+        }
+
         UUID playerUUID = player.getUniqueId();
 
         // Check cooldown

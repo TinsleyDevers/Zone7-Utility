@@ -24,6 +24,8 @@ PokeCommand:
 UndoCommand:
   # Time in milliseconds to allow undoing a block after placing it
   UndoTimer: 1500
+  # Minimum time in milliseconds a block must be placed before it can be undone (used to prevent dupes with land claims)
+  MinPlacementTime: 500
 
 # Tips Feature Settings
 TipsCommand:

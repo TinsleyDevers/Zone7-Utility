@@ -28,7 +28,7 @@ public class MainPluginClass extends JavaPlugin {
         }
 
         undoCommand = new UndoCommand();
-        this.getCommand("undo").setExecutor(undoCommand);
+        this.getCommand("undotoggle").setExecutor(undoCommand);
 
         blockUndoListener = new BlockUndoListener(this, undoCommand);
         getServer().getPluginManager().registerEvents(blockUndoListener, this);
@@ -104,7 +104,7 @@ public class MainPluginClass extends JavaPlugin {
 
             sender.sendMessage(ChatColor.GREEN + "Configuration reloaded!");
         } else {
-            sender.sendMessage(ChatColor.RED + "You don't have permission to do that.");
+            sender.sendMessage(ChatColor.RED + "You don't have permission to reload the configuration.");
         }
         return true;
     }
