@@ -6,7 +6,7 @@
 
     <groupId>me.tinsley.zone7</groupId>
     <artifactId>Zone7</artifactId>
-    <version>1.6</version>
+    <version>1.5.1</version>
 
     <repositories>
         <repository>
