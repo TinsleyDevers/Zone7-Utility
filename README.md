@@ -13,7 +13,7 @@ This is my first real java project and it was made for the minecraft server zone
 - (rename a bow or crossbow to the respective names for arrow trails)
 
 ## **-Flower Particles-**
-- Rename a flower and drop it for hearts and sparks to appear around you
+- Rename a flower and drop it for hearts and sparks to appear around you.
 
 ## **-Commands-**
 - **/undo** - break a block instantly; up to1.5 seconds after placing.
