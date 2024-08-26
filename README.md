@@ -2,7 +2,7 @@
 **Zone7 Utility ✨ [1.20.X] Pet Mobs - Poke Users - Arrow Trails - Tips in Chat 
 Minecraft Plugin**
 
-This is my first real java project. Project for a prviate MC server.
+This is my first real java project.
 
 ## **-Petting Mobs-**
 - pet mobs by shift right clicking with an empty hand.
